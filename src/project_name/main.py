@@ -77,12 +77,6 @@ def create_app() -> FastAPI:
 app = create_app()
 
 
-@app.get("/favicon.ico", include_in_schema=False)
-async def favicon():
-    """Handle favicon requests."""
-    return Response(status_code=204)  # No Content (browsers love to ask for this)
-
-
 @app.get("/health", tags=["Health"])
 async def health_check():
     """Health check endpoint."""

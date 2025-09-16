@@ -40,7 +40,9 @@ This project is a minimal REST API for user management built with FastAPI, SQLAl
 
 ## 🧪 Running Tests
 
-```bash
+```powershell
+# On Windows, run tests from the project root like this:
+$env:PYTHONPATH = "src"
 pytest
 ```
 
