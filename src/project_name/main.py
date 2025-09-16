@@ -13,7 +13,7 @@ from project_name.api.v1 import router as api_v1_router
 
 settings = get_settings()
 
-# Configure logging
+# Set up logging for the whole app (so you always know what's going on)
 logging.basicConfig(
     level=getattr(logging, settings.LOG_LEVEL),
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -21,7 +21,7 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-# Static files path
+# Path to static files (images, CSS, etc.)
 STATIC_DIR = Path(__file__).parent / "static"
 
 
@@ -49,11 +49,11 @@ def create_app() -> FastAPI:
         lifespan=lifespan,
     )
 
-    # Mount static files
+    # Serve static files if the folder exists (handy for docs, images, etc.)
     if STATIC_DIR.exists():
         app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
-    # Configure CORS
+    # Allow cross-origin requests (CORS) for local dev or production
     allowed_origins = (
         ["*"] if settings.DEBUG
         else ["https://yourdomain.com", "http://localhost:3000"]
@@ -67,20 +67,20 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
-    # Include routers
+    # Register all API routes (keeps things modular)
     app.include_router(api_v1_router, prefix="/api/v1", tags=["API v1"])
 
     return app
 
 
-# Create app instance
+# Actually create the FastAPI app instance (so uvicorn can find it)
 app = create_app()
 
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
     """Handle favicon requests."""
-    return Response(status_code=204)  # No Content
+    return Response(status_code=204)  # No Content (browsers love to ask for this)
 
 
 @app.get("/health", tags=["Health"])

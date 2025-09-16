@@ -6,7 +6,7 @@ from project_name.database import get_db, SessionLocal
 
 router = APIRouter()
 
-# Вспомогательная функция для получения пользователя
+# Helper to fetch a user by ID (keeps code DRY and readable)
 
 
 def get_user_obj(db: Session, user_id: int):
