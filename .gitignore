@@ -1,21 +1,23 @@
-New-Item -ItemType File -Path .gitignore
-Set-Content -Path .gitignore -Value @'
-# Python virtual environment
-venv/
-
-# Backup files
-*.zip
-
-# VS Code settings (optional, include if user-specific)
-.vscode/
-
-# Python cache
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
 
+# Virtualenv
+venv/
+.env
+
+# VSCode
+.vscode/
+
+# SQLite
+*.db
+
+# OS
+.DS_Store
+Thumbs.db
+# Backup files
+*.zip
 # Other temporary files
 *.log
-.DS_Store
-'@
